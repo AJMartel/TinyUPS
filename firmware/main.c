@@ -329,7 +329,7 @@ int __attribute__((noreturn)) main(void)
     #if defined(USE_TIMER_FOR_SCHEDULING)
     TCCR0A = _BV(WGM01); // CTC mode
     OCR0A = // about 1ms
-    #ifdef F_CPU == 12000000
+    #if F_CPU == 12000000
     12
     #elif F_CPU >= 16000000
     16

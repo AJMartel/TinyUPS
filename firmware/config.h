@@ -5,30 +5,32 @@
 
 #define ENABLE_UPS_REPORTS // must be enabled or else device won't be a UPS, disable only to test ADCs
 //#define ENABLE_DEBUG_REPORTS // reports ADC values via a vendor specific report
-#define ENABLE_TEST_SHUTDOWN // uses a spare pin to test if device will accept a low battery level to shutdown
+#define ENABLE_TEST_SHUTDOWN bit_is_clear(PINB, TEST_SHUTDOWN_BIT)// uses a spare pin to test if device will accept a low battery level to shutdown
 //#define ALLOW_WRITE // allows the host to write values via SETUP OUT transactions
 #define USE_SOF_FOR_OSC_CAL // use with ATtiny85
 //#define USE_SOF_FOR_SCHEDULING // assumes SOF is 1ms apart
 #define USE_TIMER_FOR_SCHEDULING // uses a AVR internal timer for scheduling
 //#define USE_AUTO_SCALE // use only if you really don't want to actually calibrate
 #define FAKE_CYBERPOWER // some devices need to be on an "approved list", enabling this will pretend to be a CyberPower CP850PFCLCD as much as possible
-//#define FAKE_ALWAYS_FULL // only used for testing without the risk of unexpectedly shutting down the PC
+#define FAKE_ALWAYS_FULL // only used for testing without the risk of unexpectedly shutting down the PC
 
 // below are some hardware settings that can be changed without modifying main code
 
 // ADC channels for the battery and status pins
-#define BATT_CHAN 2
-#define STATUS_CHAN 1
+#define BATT_CHAN 1
+#define STATUS_CHAN 0
+
+#define TEST_SHUTDOWN_BIT 0
 
 #define USB_CFG_IOPORTNAME      B
 /* This is the port where the USB bus is connected. When you configure it to
  * "B", the registers PORTB, PINB and DDRB will be used.
 **/
-#define USB_CFG_DMINUS_BIT      0
+#define USB_CFG_DMINUS_BIT      3 	//was 0
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
 **/
-#define USB_CFG_DPLUS_BIT       1
+#define USB_CFG_DPLUS_BIT       4 	//was 1
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
  * to interrupt pin INT0!

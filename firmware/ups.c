@@ -112,7 +112,7 @@ void poll_batt(void)
     #endif
 
     #ifdef ENABLE_TEST_SHUTDOWN
-    if (bit_is_clear(PINB, 3)) {
+    if (ENABLE_TEST_SHUTDOWN) {
         percent = 0.01;
     }
     #endif
@@ -130,6 +130,7 @@ void poll_status(void)
         STS_FULL,
     };
 
+#ifndef FAKE_ALWAYS_FULL
     static int8_t prev_sts = -1;
     static uint8_t stable = 0;
     static char charger_intelligent = 0;
@@ -223,13 +224,12 @@ void poll_status(void)
     {
         status_flags = (1 << 4) | (1 << 0);
     }
-
-    #ifdef FAKE_ALWAYS_FULL
+#else
     status_flags = (1 << 4) | (1 << 0);
-    #endif
-
+#endif
+		
     #ifdef ENABLE_TEST_SHUTDOWN
-    if (bit_is_clear(PINB, 3)) {
+    if (ENABLE_TEST_SHUTDOWN) {
         status_flags = (1 << 2) | (1 << 3);
     }
     #endif
@@ -290,8 +290,8 @@ void ups_init(void)
     uint16_t i;
 
     #ifdef ENABLE_TEST_SHUTDOWN
-    DDRB &= ~_BV(3);
-    PORTB |= _BV(3);
+    DDRB &= ~_BV(TEST_SHUTDOWN_BIT);
+    PORTB |= _BV(TEST_SHUTDOWN_BIT);
     _delay_ms(10);
     #endif
 
