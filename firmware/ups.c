@@ -113,7 +113,11 @@ void poll_batt(void)
 
     #ifdef ENABLE_TEST_SHUTDOWN
     if (ENABLE_TEST_SHUTDOWN) {
-        percent = 0.01;
+				if (batt_percent>0.01) 
+					batt_percent -= 0.00001;
+				else
+					batt_percent = 0.01;
+				percent = batt_percent;
     }
     #endif
 
