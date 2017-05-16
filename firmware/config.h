@@ -20,17 +20,17 @@
 #define BATT_CHAN 1
 #define STATUS_CHAN 0
 
-#define TEST_SHUTDOWN_BIT 0
+#define TEST_SHUTDOWN_BIT 3	//was 0
 
-#define USB_CFG_IOPORTNAME      B
+#define USB_CFG_IOPORTNAME      D
 /* This is the port where the USB bus is connected. When you configure it to
  * "B", the registers PORTB, PINB and DDRB will be used.
 **/
-#define USB_CFG_DMINUS_BIT      3 	//was 0
+#define USB_CFG_DMINUS_BIT      4	//3 	//was 0
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
 **/
-#define USB_CFG_DPLUS_BIT       4 	//was 1
+#define USB_CFG_DPLUS_BIT       2	//4 	//was 1
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
  * to interrupt pin INT0!
@@ -39,6 +39,7 @@
 /* The interrupt needs to be configured correctly
  * keeping in mind that USB_SOF_COUNT requires a different configuration
 **/
+#if defined (__AVR_ATtiny85__)
 #define USB_INTR_CFG            PCMSK
 #define USB_INTR_CFG_SET        (1 << USB_CFG_DMINUS_BIT)
 #define USB_INTR_CFG_CLR        0
@@ -47,7 +48,7 @@
 #define USB_INTR_PENDING        GIFR
 #define USB_INTR_PENDING_BIT    PCIF
 #define USB_INTR_VECTOR         PCINT0_vect
-
+#endif
 // USB identification parameters below
 
 #ifdef FAKE_CYBERPOWER

@@ -373,8 +373,13 @@ int __attribute__((noreturn)) main(void)
         prevSof = curSof;
         #endif
         #if defined(USE_TIMER_FOR_SCHEDULING)
+				#if defined(TIFR0)
+        if (bit_is_set(TIFR0, TOV0) || bit_is_set(TIFR0, OCF0A)) {
+            TIFR0 |= TIFR0; // clear all flags
+				#else
         if (bit_is_set(TIFR, TOV0) || bit_is_set(TIFR, OCF0A)) {
             TIFR |= TIFR; // clear all flags
+				#endif
             ms++;
         }
         #elif !defined(USE_SOF_FOR_SCHEDULING)
