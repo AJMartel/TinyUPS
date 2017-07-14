@@ -5,7 +5,7 @@
 
 #define ENABLE_UPS_REPORTS // must be enabled or else device won't be a UPS, disable only to test ADCs
 //#define ENABLE_DEBUG_REPORTS // reports ADC values via a vendor specific report
-#define ENABLE_TEST_SHUTDOWN bit_is_clear(PINB, TEST_SHUTDOWN_BIT)// uses a spare pin to test if device will accept a low battery level to shutdown
+#define ENABLE_TEST_SHUTDOWN bit_is_set(PINB, TEST_SHUTDOWN_BIT)// uses a spare pin to test if device will accept a low battery level to shutdown
 //#define ALLOW_WRITE // allows the host to write values via SETUP OUT transactions
 #define USE_SOF_FOR_OSC_CAL // use with ATtiny85
 //#define USE_SOF_FOR_SCHEDULING // assumes SOF is 1ms apart
