@@ -9,7 +9,7 @@
 # License: GNU GPL v3
 
 DEVICE  = attiny85
-F_CPU   = 12000000	# in Hz
+F_CPU   = 16000000	# in Hz
 FUSE_L  = 0xE2
 FUSE_H  = 0xD5
 AVRDUDE = avrdude -c dragon_isp -p $(DEVICE) # edit this line for your programmer
